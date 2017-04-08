@@ -2,6 +2,7 @@ package tested;
 
 import bingoee.sso.client.rs.Authenticator;
 import bingoee.sso.client.rs.Principal;
+import bingoee.sso.client.rs.Token;
 import bingoee.sso.client.rs.impl.AuthenticatorFactory;
 import org.junit.Test;
 
@@ -18,12 +19,21 @@ public class TestAuthenticatorFactory {
             "NzIsImV4cGlyZXMiOjE0OTA3MzU1MzcwMDAsImVuYWJsZWQiOjEsImV4cCI6MTQ5MDczNTY2NDc0OX0.S3PhkZ3bz48oLr" +
             "0he3mdbuUcOqEn0nw7R2JTtWTt2XPqCEgGtTgT0R4Qqto3to7_EP8ahey4NTVmtZKduoYJVtKoE47GaGQunq7avehwU1xCXo" +
             "b444jIKEhdr9EXOSXAa4gZQRJt6jPRBNM2NyA8LutsgaFQPC6GnsWdsV_8SGU";
-    @Test
+    //@Test
     public void test() throws Throwable {
         Authenticator f = AuthenticatorFactory.generateByPublicKey(publicKey);
           Principal p =f.verifyToken(token);
           System.out.println(p.getExpires());
           System.out.println(p.getUsername());
           System.out.println(p.get("exp"));
+    }
+
+    @Test
+    public void token () throws Throwable{
+        Authenticator f = AuthenticatorFactory.generateAccessToken();
+        Token token = f.authenticationTokenPassword(new String [] {
+                "http://10.201.78.206:9090/ssov3/oauth2/token","admin","admin","client","clientkey"
+        });
+        System.out.print(token.getAccessToken());
     }
 }

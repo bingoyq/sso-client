@@ -3,6 +3,7 @@ package bingoee.sso.client.rs.impl;
 
 import bingoee.sso.client.rs.Authenticator;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -19,5 +20,9 @@ public class AuthenticatorFactory {
         URL url = new URL(publicKeyUrl);
         return new AuthenticatorImpl(url);
     }
-    
+
+    public static Authenticator generateAccessToken() throws IOException {
+        return new AuthenticatorImpl();
+    }
+
 }

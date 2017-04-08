@@ -11,4 +11,13 @@ public interface Authenticator {
      * @throws Throwable 异常信息
      */
     Principal verifyToken(String token) throws Throwable;
+
+    /**
+     * 通过password方式鉴权
+     * 传入必要参数，获取鉴权令牌
+     * @param parameter [url ,username,password,client_id,client_secret]
+     * @return Token
+     * @throws Throwable
+     */
+    Token authenticationTokenPassword(String ...parameter) throws Throwable;
 }

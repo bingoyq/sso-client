@@ -3,6 +3,7 @@ package bingoee.sso.client.rs.impl;
 
 import bingoee.sso.client.rs.Authenticator;
 import bingoee.sso.client.rs.Principal;
+import bingoee.sso.client.rs.Token;
 import com.alibaba.fastjson.JSONObject;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ class AuthenticatorImpl implements Authenticator {
     public AuthenticatorImpl(String publicKey, URL publicKeyUrl) {
         this.publicKey = publicKey;
     }
+    public AuthenticatorImpl(){ }
 
     @Override
     public Principal verifyToken(String token) throws Throwable {
@@ -35,6 +37,17 @@ class AuthenticatorImpl implements Authenticator {
             return decodeToPrincipal(parseJwtToken(token));
         }
         return decodeToPrincipal(parseAccessToken(token));
+    }
+
+    @Override
+    public Token authenticationTokenPassword(String... parameter) throws Throwable {
+
+        if (parameter == null || parameter.length != 5) {
+            throw new IllegalArgumentException("token can not be null or empty");
+        }
+
+        return HttpClientUtil.grantTypePassword(parameter);
+
     }
 
     protected Principal decodeToPrincipal(String json) {
